@@ -13,10 +13,38 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{59c1a4b2-3d5a-4a82-82d9-8b2faa1339a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Databases">
+      <UniqueIdentifier>{43bfe442-4f5d-453e-8dc1-992d45ba1542}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SettingsHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DatabaseEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SettingsHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Databases\TestDatabase.txt">
+      <Filter>Databases</Filter>
+    </Text>
+    <Text Include="Settings\Settings.txt">
+      <Filter>Settings</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -1,4 +1,7 @@
 #include <windows.h>
+#include <string>
+#include "SettingsHandler.h"
+#include "DatabaseEngine.h"
 
 //Definitions
 #define IDC_MAIN_EDIT 101
@@ -12,6 +15,10 @@
 const char g_szClassName[] = "myWindowClass";
 const char g_WindowTitle[] = "Local Search V0.0.0";
 HWND hMainWindow = { 0 };
+HWND hStatusBar;
+std::string g_StatusStates[4] = { "Initializing...","Resting","Searching...","Re-Initializing..." };
+SettingsHandler g_Settings;
+DatabaseEngine g_Engine;
 
 //Forward Declarations
 bool RegisterMainWindow(HINSTANCE hInstance);
@@ -96,11 +103,16 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		AddMainMenu(hwnd);
 		AddMainControls(hwnd);
+		g_Engine.RefreshDatabase();
+		SetWindowText(hStatusBar, g_StatusStates[1].c_str());
 		break;
 	case WM_COMMAND:
 		switch (wParam) {
 		case ID_FILE_EXIT:
 			PostQuitMessage(0);
+			break;
+		case ID_OPEN_SETTINGS:
+			ShellExecute(hwnd, "open", g_Settings.GetSettingsFileLocation().c_str(), NULL, NULL, SW_SHOW);
 			break;
 		case ID_ABOUT:
 			MessageBox(NULL, "Just a quick psuedo-search engine, searching a \"database\" pulled from a text file.\nProbably for testing data structures.\n\n-Marius Ventus", "About", MB_OK | MB_ICONINFORMATION);
@@ -131,7 +143,7 @@ void AddMainMenu(HWND hwnd)
 	hMenu = CreateMenu();
 	//File Menu
 	hFileMenu = CreatePopupMenu();
-	AppendMenu(hFileMenu, MF_STRING, ID_IN_PROGRESS, "Settings");
+	AppendMenu(hFileMenu, MF_STRING, ID_OPEN_SETTINGS, "Settings");
 	AppendMenu(hFileMenu, MF_SEPARATOR, NULL, NULL);
 	AppendMenu(hFileMenu, MF_STRING, ID_FILE_EXIT, "Exit");
 	AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hFileMenu, "File");
@@ -145,4 +157,10 @@ void AddMainMenu(HWND hwnd)
 
 void AddMainControls(HWND hwnd)
 {
+	//Notes
+	CreateWindowEx(NULL, "STATIC", " Status:", WS_CHILD | WS_VISIBLE,
+		0, 0, 55, 25, hwnd, NULL, GetModuleHandle(NULL), NULL);
+	hStatusBar = CreateWindowEx(NULL, "STATIC", g_StatusStates[0].c_str(), WS_CHILD | WS_VISIBLE, 
+		55, 0, 200, 25, hwnd, NULL, GetModuleHandle(NULL), NULL);
+
 }
