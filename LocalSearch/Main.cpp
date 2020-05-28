@@ -12,13 +12,13 @@
 #define ID_IN_PROGRESS 9020
 
 //Globals
-const char g_szClassName[] = "myWindowClass";
+const char g_szClassName[] = "LocalSearchMain";
 const char g_WindowTitle[] = "Local Search V0.0.0";
 HWND hMainWindow = { 0 };
 HWND hStatusBar;
-std::string g_StatusStates[4] = { "Initializing...","Resting","Searching...","Re-Initializing..." };
+std::string g_StatusStates[5] = { "Initializing...","Ready","Searching...","Training...","Rebuilding..." };
 SettingsHandler g_Settings;
-DatabaseEngine g_Engine;
+DatabaseEngine g_Engine(g_Settings);
 
 //Forward Declarations
 bool RegisterMainWindow(HINSTANCE hInstance);
@@ -26,6 +26,7 @@ bool CreateMainWindow(HINSTANCE hInstance);
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 void AddMainMenu(HWND hwnd);
 void AddMainControls(HWND hwnd);
+void InitializeContent(void);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
@@ -42,6 +43,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	ShowWindow(hMainWindow, nCmdShow);
 	UpdateWindow(hMainWindow);
+
+	InitializeContent();
 
 	while (GetMessage(&Msg, NULL, 0, 0) > 0)
 	{
@@ -63,7 +66,7 @@ bool RegisterMainWindow(HINSTANCE hInstance)
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wc.hbrBackground = CreateSolidBrush(RGB(1, 22, 53));
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = g_szClassName;
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
@@ -103,8 +106,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		AddMainMenu(hwnd);
 		AddMainControls(hwnd);
-		g_Engine.RefreshDatabase();
-		SetWindowText(hStatusBar, g_StatusStates[1].c_str());
 		break;
 	case WM_COMMAND:
 		switch (wParam) {
@@ -115,10 +116,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			ShellExecute(hwnd, "open", g_Settings.GetSettingsFileLocation().c_str(), NULL, NULL, SW_SHOW);
 			break;
 		case ID_ABOUT:
-			MessageBox(NULL, "Just a quick psuedo-search engine, searching a \"database\" pulled from a text file.\nProbably for testing data structures.\n\n-Marius Ventus", "About", MB_OK | MB_ICONINFORMATION);
+			MessageBox(NULL, "Just a quick psuedo-search engine, searching a \"database\" pulled from a text file.\nLearns and incorporates from user feedback.\n\n-Marius Ventus", "About", MB_OK | MB_ICONINFORMATION);
 			break;
 		case ID_HELP:
-			MessageBox(NULL, "No help, only Zuul.\n\nOr maybe the Readme on Github:\nhttps://github.com/MariusVentus", "Halp", MB_OK | MB_ICONINFORMATION);
+			MessageBox(NULL, "No help, only Zuul.\n\nOr maybe the Readme.", "Halp", MB_OK | MB_ICONINFORMATION);
 			break;
 		case ID_IN_PROGRESS:
 			MessageBox(NULL, "Apologies, this feature is under construction.", "Under Construction", MB_OK | MB_ICONEXCLAMATION);
@@ -161,6 +162,12 @@ void AddMainControls(HWND hwnd)
 	CreateWindowEx(NULL, "STATIC", " Status:", WS_CHILD | WS_VISIBLE,
 		0, 0, 55, 25, hwnd, NULL, GetModuleHandle(NULL), NULL);
 	hStatusBar = CreateWindowEx(NULL, "STATIC", g_StatusStates[0].c_str(), WS_CHILD | WS_VISIBLE, 
-		55, 0, 200, 25, hwnd, NULL, GetModuleHandle(NULL), NULL);
+		55, 0, 100, 25, hwnd, NULL, GetModuleHandle(NULL), NULL);
 
+}
+
+void InitializeContent(void)
+{
+	g_Engine.InitializeDB();
+	SetWindowText(hStatusBar, g_StatusStates[1].c_str());
 }

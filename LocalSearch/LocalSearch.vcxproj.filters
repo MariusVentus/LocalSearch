@@ -30,6 +30,12 @@
     <ClCompile Include="DatabaseEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimeKeeper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RandHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SettingsHandler.h">
@@ -38,13 +44,42 @@
     <ClInclude Include="DatabaseEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NeuralNet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Neuron.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Containers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeKeeper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RandHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Databases\TestDatabase.txt">
-      <Filter>Databases</Filter>
-    </Text>
     <Text Include="Settings\Settings.txt">
       <Filter>Settings</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Databases\InitialContainerList.CSV">
+      <Filter>Databases</Filter>
+    </None>
+    <None Include="Databases\InitialSearchPool.csv">
+      <Filter>Databases</Filter>
+    </None>
+    <None Include="Databases\ActiveContainerList.CSV">
+      <Filter>Databases</Filter>
+    </None>
+    <None Include="Databases\ActiveSearchPool.csv">
+      <Filter>Databases</Filter>
+    </None>
   </ItemGroup>
 </Project>
