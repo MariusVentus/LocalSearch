@@ -1,2 +1,4 @@
-[Container Schema]
-Title,URL,Email,Notes
+[ContainerSchema]
+URL,Email,Notes
+[FirstRun]
+true

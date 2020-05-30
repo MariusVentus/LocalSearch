@@ -59,6 +59,9 @@
     <ClInclude Include="RandHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Topology.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Settings\Settings.txt">

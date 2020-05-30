@@ -3,15 +3,17 @@
 
 class RContainer {
 public:
-	RContainer(unsigned inCID, bool inState, const std::vector<std::string>& inInfo)
+	RContainer(unsigned inCID, bool inState, const std::string& inTitle, const std::vector<std::string>& inInfo)
 		:
 		m_CellID(inCID),
 		isStateGood(inState),
+		m_ContainerTitle(inTitle),
 		m_Info(inInfo)
 	{}
 	//Get
 	unsigned GetCID(void) const { return m_CellID; }
 	bool GetState(void) const { return isStateGood; }
+	std::string GetTitle(void) const { return m_ContainerTitle; }
 	std::vector<std::string> GetAllInfo(void) const { return m_Info; }
 	std::string GetXInfo(unsigned Iterator) const { return m_Info[Iterator]; }
 	//Set
@@ -20,6 +22,7 @@ public:
 private:
 	unsigned m_CellID = -1;
 	bool isStateGood = false;
+	std::string m_ContainerTitle;
 	std::vector<std::string> m_Info;
 };
 

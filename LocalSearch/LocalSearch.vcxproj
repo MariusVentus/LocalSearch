@@ -139,6 +139,7 @@
     <ClInclude Include="RandHandler.h" />
     <ClInclude Include="SettingsHandler.h" />
     <ClInclude Include="TimeKeeper.h" />
+    <ClInclude Include="Topology.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Settings\Settings.txt" />

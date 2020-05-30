@@ -17,6 +17,13 @@ public:
 
 	//Var
 private:
+	const std::string m_InitialSearchpool = "Databases\\InitialSearchPool.csv";
+	const std::string m_InitialContainerList = "Databases\\InitialContainerList.csv";
+	const std::string m_ActiveSearchpool = "Databases\\ActiveSearchPool.csv";
+	const std::string m_ActiveContainerList = "Databases\\ActiveContainerList.csv";
+
+	std::vector<RContainer> m_ResultContainers;
+	std::vector<SContainer> m_SearchContainers;
 	const SettingsHandler& m_Set;
 	unsigned m_LastAccuracy = 0;
 };
